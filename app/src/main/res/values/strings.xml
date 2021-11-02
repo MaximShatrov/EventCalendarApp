@@ -41,6 +41,7 @@
     <string name="newEventSetTitleHere">Set title</string>
     <string name="newEventSetDescription">Set description</string>
     <string name="newEventToolbarTitle">New event</string>
+    <string name="eventDetailsDeleteEvent">Delete event</string>
 
 
 </resources>

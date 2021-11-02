@@ -77,7 +77,7 @@
         android:id="@+id/bt_deleteEvent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Delete event"
+        android:text="@string/eventDetailsDeleteEvent"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:backgroundTint="@color/colorAccent"

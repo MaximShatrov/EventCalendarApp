@@ -39,4 +39,5 @@
     <string name="newEventSetTitleHere">Укажите название</string>
     <string name="newEventSetDescription">Укажите описание</string>
     <string name="newEventToolbarTitle">Новая запись</string>
+    <string name="eventDetailsDeleteEvent">Удалить запись</string>
 </resources>
