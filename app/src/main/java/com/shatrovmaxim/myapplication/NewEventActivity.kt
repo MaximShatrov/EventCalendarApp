@@ -23,12 +23,12 @@ import java.util.*
 
 
 class NewEventActivity : AppCompatActivity() {
-    val eventService: EventService = EventServiceImpl(EventJsonFileRepository())
-    var selectedDateCalendar: Calendar = Calendar.getInstance()
-    lateinit var timestampStart: Timestamp
-    lateinit var timestampFinish: Timestamp
-    lateinit var textViewStartTime: TextView
-    lateinit var textViewFinishTime: TextView
+    private val eventService: EventService = EventServiceImpl(EventJsonFileRepository())
+    private var selectedDateCalendar: Calendar = Calendar.getInstance()
+    private lateinit var timestampStart: Timestamp
+    private lateinit var timestampFinish: Timestamp
+    private lateinit var textViewStartTime: TextView
+    private lateinit var textViewFinishTime: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,32 +45,27 @@ class NewEventActivity : AppCompatActivity() {
             SimpleDateFormat("EEEE, dd MMMM YYYY г.").format(selectedDateCalendar.time).capitalize()
 
         textViewStartTime = findViewById(R.id.tv_newEventStartTime)
-
         textViewStartTime.setOnClickListener {
             timePickerShow(timestampStart, textViewStartTime)
         }
 
         textViewFinishTime = findViewById(R.id.tv_newEventFinishTime)
-
         textViewFinishTime.setOnClickListener {
             timePickerShow(timestampFinish, textViewFinishTime)
         }
-
-        textVievTimeSet()
+        textViewTimeSet()
 
         val builder = DatePickerBuilder(
             this,
             OnSelectDateListener { calendar ->
                 selectedDateCalendar = calendar.get(0)
                 textViewDate.text =
-                    SimpleDateFormat("EEEE, dd MMMM YYYY г.").format(selectedDateCalendar.time)
+                    SimpleDateFormat("EEEE, dd MMMM YYYY").format(selectedDateCalendar.time)
                         .capitalize()
             })
             .setPickerType(CalendarView.ONE_DAY_PICKER)
         builder.setDate(selectedDateCalendar)
         val datePicker: DatePicker = builder.build()
-
-        val editTextDescription: EditText = findViewById(R.id.et_eventTitle)
 
         textViewDate.setOnClickListener {
             datePicker.show()
@@ -95,7 +90,6 @@ class NewEventActivity : AppCompatActivity() {
                 )
                 if (eventService.createEvent(newEventEntity).id != -1){
                     super.onBackPressed()
-
                 } else {
                     val toast: Toast = Toast.makeText(this,getString(R.string.newEventBusy),Toast.LENGTH_SHORT)
                     toast.show()
@@ -104,7 +98,7 @@ class NewEventActivity : AppCompatActivity() {
         }
     }
 
-    private fun textVievTimeSet() {
+    private fun textViewTimeSet() {
         val sdf = SimpleDateFormat("HH:mm")
         sdf.setTimeZone(TimeZone.getTimeZone("GMT"))
         textViewStartTime.text = sdf.format(timestampStart)
@@ -118,17 +112,12 @@ class NewEventActivity : AppCompatActivity() {
             this,
             TimePickerDialog.OnTimeSetListener { timePicker, i, i2 ->
                 timestamp.time = (60000L * ((i * 60) + i2))
-                //val calendar: Calendar = Calendar.getInstance()
-                //calendar.timeInMillis = timestamp.time
                 val sdf = SimpleDateFormat("HH:mm")
                 sdf.setTimeZone(TimeZone.getTimeZone("GMT"))
                 textView.text = sdf.format(timestamp)
-
                 if (timestampFinish.time < timestampStart.time) {
-                    //textViewStartTime.setTextColor(Color.RED)
                     textViewFinishTime.setTextColor(Color.RED)
                 } else {
-                    //textViewStartTime.setTextColor(Color.parseColor("#808080"))
                     textViewFinishTime.setTextColor(ContextCompat.getColor(this, R.color.colorDefaultText))
                 }
             },
