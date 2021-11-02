@@ -1,33 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.MainActivity">
+    android:animateLayoutChanges="true"
+    android:theme="@style/AppTheme.NoActionBar"
+    tools:context=".MainActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+    <View
+        android:id="@+id/v_mainToolbar"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    </com.google.android.material.appbar.AppBarLayout>
+    <ImageView
+        android:id="@+id/iv_dateIcon"
+        android:layout_width="@dimen/toolbarIconSize"
+        android:layout_height="@dimen/toolbarIconSize"
+        android:layout_marginStart="@dimen/toolbarStartEndMargin"
+        app:layout_constraintBottom_toBottomOf="@id/v_mainToolbar"
+        app:layout_constraintStart_toStartOf="@id/v_mainToolbar"
+        app:layout_constraintTop_toTopOf="@id/v_mainToolbar"
+        app:srcCompat="@drawable/ic_calendar" />
 
-    <include layout="@layout/content_main" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+    <TextView
+        android:id="@+id/tv_toolbarDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        android:paddingEnd="20dp"
+        android:textColor="@android:color/white"
+        android:textSize="25dp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="@id/v_mainToolbar"
+        app:layout_constraintEnd_toStartOf="@+id/iv_todayIcon"
+        app:layout_constraintStart_toEndOf="@id/iv_dateIcon"
+        app:layout_constraintTop_toTopOf="@+id/v_mainToolbar"
+        tools:text="8 ноября 2021" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <ImageView
+        android:id="@+id/iv_dateArrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/v_mainToolbar"
+        app:layout_constraintEnd_toEndOf="@+id/tv_toolbarDate"
+        app:layout_constraintTop_toTopOf="@+id/v_mainToolbar"
+        app:srcCompat="@drawable/ic_angle_up" />
+
+    <ImageView
+        android:id="@+id/iv_todayIcon"
+        android:layout_width="@dimen/toolbarIconSize"
+        android:layout_height="@dimen/toolbarIconSize"
+        app:layout_constraintBottom_toBottomOf="@id/v_mainToolbar"
+        android:layout_marginEnd="@dimen/toolbarStartEndMargin"
+        app:layout_constraintEnd_toEndOf="@id/v_mainToolbar"
+        app:layout_constraintTop_toTopOf="@id/v_mainToolbar"
+        app:srcCompat="@drawable/ic_calendar_today" />
+
+    <com.applandeo.materialcalendarview.CalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:background="#F3E5F5"
+        app:anotherMonthsDaysLabelsColor="@color/colorCalendarAnotherMonthDays"
+        app:daysLabelsColor="@color/colorCalendarDaysLabelsColor"
+        app:eventsEnabled="true"
+        app:headerColor="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/v_mainToolbar"
+        app:type="one_day_picker" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_eventsList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingHorizontal="5dp"
+        android:paddingVertical="5dp"
+        android:paddingTop="1dp"
+        android:paddingBottom="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/calendarView" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="[DEBUG] Show all events sorted"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_plus" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

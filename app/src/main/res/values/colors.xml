@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorPrimary">#2962FF</color>
+    <color name="colorPrimaryDark">#143799</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="colorDefaultText">#808080</color>
+    <color name="colorEventCard">#406ADF</color>
+    <color name="colorCalendarAnotherMonthDays">#56A5A5A5</color>
+    <color name="colorCalendarDaysLabelsColor">#000000</color>
+
+
+
 </resources>
