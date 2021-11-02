@@ -25,17 +25,17 @@ import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
-    lateinit var eventService: EventService
-    var selectedCalendarDate = Calendar.getInstance()
-    val mapMaker = EventMapMaker()
+    private lateinit var eventService: EventService
+    private var selectedCalendarDate = Calendar.getInstance()
+    private val mapMaker = EventMapMaker()
 
-    lateinit var toolbarTextViewDate: TextView
-    lateinit var toolbarTodayIcon: ImageView
-    lateinit var calendarView: CalendarView
-    lateinit var recyclerViewTimeline: RecyclerView
+    private lateinit var toolbarTextViewDate: TextView
+    private lateinit var toolbarTodayIcon: ImageView
+    private lateinit var calendarView: CalendarView
+    private lateinit var recyclerViewTimeline: RecyclerView
+    private lateinit var fabNewEvent: FloatingActionButton
 
-    lateinit var fabNewEvent: FloatingActionButton
-    var listener: OpenViewListener = object : OpenViewListener {
+    private var listener: OpenViewListener = object : OpenViewListener {
         override fun openView(eventEntity: EventEntity) {
             val intent = Intent(this@MainActivity, EventDetailsActivity::class.java)
             intent.putExtra("Event", eventEntity)
