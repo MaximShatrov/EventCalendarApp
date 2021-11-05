@@ -3,6 +3,7 @@ package com.shatrovmaxim.myapplication.repository
 import com.shatrovmaxim.myapplication.repository.entity.EventEntity
 import java.util.*
 
+//TODO() Документация
 interface EventRepository {
     fun findAll(): MutableList<EventEntity>
     fun getById(id: Int): EventEntity

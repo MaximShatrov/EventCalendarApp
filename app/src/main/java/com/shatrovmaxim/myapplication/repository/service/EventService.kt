@@ -4,6 +4,7 @@ import com.shatrovmaxim.myapplication.repository.entity.EventEntity
 import java.io.Serializable
 import java.util.*
 
+//TODO() Документация
 interface EventService : Serializable {
     //getAll
     fun findAll(): List<EventEntity>

@@ -10,19 +10,15 @@ class SubApplication : Application() {
     }
 
     companion object {
-        private var instance: SubApplication? = null
+        private var instance: SubApplication = SubApplication()
 
         fun applicationContext() : Context {
-            return instance!!.applicationContext
+            return instance.applicationContext
         }
     }
 
     override fun onCreate() {
         super.onCreate()
-        // initialize for any
-
-        // Use ApplicationContext.
-        // example: SharedPreferences etc...
-        //val context: Context = applicationContext()
     }
+
 }

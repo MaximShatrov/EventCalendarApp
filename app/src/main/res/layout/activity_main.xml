@@ -8,11 +8,10 @@
     android:theme="@style/AppTheme.NoActionBar"
     tools:context=".MainActivity">
 
-
     <View
         android:id="@+id/v_mainToolbar"
         android:layout_width="wrap_content"
-        android:layout_height="45dp"
+        android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,9 +19,9 @@
 
     <ImageView
         android:id="@+id/iv_dateIcon"
-        android:layout_width="@dimen/toolbarIconSize"
-        android:layout_height="@dimen/toolbarIconSize"
-        android:layout_marginStart="@dimen/toolbarStartEndMargin"
+        android:layout_width="@dimen/main_toolbarIconSize"
+        android:layout_height="@dimen/main_toolbarIconSize"
+        android:layout_marginStart="@dimen/main_toolbarIconsStartEndMargin"
         app:layout_constraintBottom_toBottomOf="@id/v_mainToolbar"
         app:layout_constraintStart_toStartOf="@id/v_mainToolbar"
         app:layout_constraintTop_toTopOf="@id/v_mainToolbar"
@@ -32,9 +31,9 @@
         android:id="@+id/tv_toolbarDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingEnd="20dp"
+        android:paddingEnd="@dimen/main_toolbarDatePaddingEnd"
         android:textColor="@android:color/white"
-        android:textSize="25dp"
+        android:textSize="@dimen/toolbarTextSize"
         android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="@id/v_mainToolbar"
         app:layout_constraintEnd_toStartOf="@+id/iv_todayIcon"
@@ -53,10 +52,10 @@
 
     <ImageView
         android:id="@+id/iv_todayIcon"
-        android:layout_width="@dimen/toolbarIconSize"
-        android:layout_height="@dimen/toolbarIconSize"
+        android:layout_width="@dimen/main_toolbarIconSize"
+        android:layout_height="@dimen/main_toolbarIconSize"
+        android:layout_marginEnd="@dimen/main_toolbarIconsStartEndMargin"
         app:layout_constraintBottom_toBottomOf="@id/v_mainToolbar"
-        android:layout_marginEnd="@dimen/toolbarStartEndMargin"
         app:layout_constraintEnd_toEndOf="@id/v_mainToolbar"
         app:layout_constraintTop_toTopOf="@id/v_mainToolbar"
         app:srcCompat="@drawable/ic_calendar_today" />
@@ -66,7 +65,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true"
-        android:background="#F3E5F5"
         app:anotherMonthsDaysLabelsColor="@color/colorCalendarAnotherMonthDays"
         app:daysLabelsColor="@color/colorCalendarDaysLabelsColor"
         app:eventsEnabled="true"
@@ -80,30 +78,17 @@
         android:id="@+id/rv_eventsList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:paddingHorizontal="5dp"
-        android:paddingVertical="5dp"
-        android:paddingTop="1dp"
-        android:paddingBottom="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calendarView" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="[DEBUG] Show all events sorted"
-        android:textSize="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="@dimen/main_fabMargin"
+        android:layout_marginBottom="@dimen/main_fabMargin"
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

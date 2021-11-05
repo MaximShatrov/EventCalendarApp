@@ -3,7 +3,6 @@ package com.shatrovmaxim.myapplication
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -12,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.applandeo.materialcalendarview.CalendarView
 import com.applandeo.materialcalendarview.EventDay
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.shatrovmaxim.myapplication.presentation.EventAdapterRecyclerView
 import com.shatrovmaxim.myapplication.presentation.EventMapAdapterRecyclerView
 import com.shatrovmaxim.myapplication.presentation.OpenViewListener
 import com.shatrovmaxim.myapplication.repository.EventJsonFileRepository
@@ -46,13 +44,24 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        init()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        eventService = EventServiceImpl(EventJsonFileRepository())
+        refreshToolbarTitle(selectedCalendarDate)
+        addEventsIcons()
+        refreshRecyclerView(selectedCalendarDate)
+    }
+
+    private fun init(){
         calendarView = findViewById(R.id.calendarView)
         calendarView.setOnDayClickListener {
             selectedCalendarDate = it.calendar
             refreshToolbarTitle(it.calendar)
             refreshRecyclerView(it.calendar)
         }
-
 
         toolbarTextViewDate = findViewById(R.id.tv_toolbarDate)
         toolbarTextViewDate.text =
@@ -77,7 +86,6 @@ class MainActivity : AppCompatActivity() {
 
         recyclerViewTimeline = findViewById(R.id.rv_eventsList)
         recyclerViewTimeline.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        //refreshRecyclerView(selectedCalendarDate)
 
         fabNewEvent = findViewById(R.id.floatingActionButton)
         fabNewEvent.setOnClickListener {
@@ -85,26 +93,6 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("Timestamp", selectedCalendarDate.timeInMillis)
             startActivity(intent)
         }
-
-        //debug button
-        val button = findViewById<Button>(R.id.button)
-        button.setOnClickListener {
-            println(eventService.findAll())
-            println(eventService.findAll().sorted())
-            recyclerViewTimeline.adapter =
-                EventAdapterRecyclerView(
-                    eventService.findAll().sortedBy { it.date_start.time },
-                    listener
-                )
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        eventService = EventServiceImpl(EventJsonFileRepository())
-        refreshToolbarTitle(selectedCalendarDate)
-        addEventsIcons()
-        refreshRecyclerView(selectedCalendarDate)
     }
 
     private fun refreshRecyclerView(calendar: Calendar) {
@@ -116,7 +104,7 @@ class MainActivity : AppCompatActivity() {
                     )
                 ), listener
             )
-        recyclerViewTimeline.scrollToPosition(8)
+        recyclerViewTimeline.scrollToPosition(POSITION_TO_SCROLL)
     }
 
     private fun refreshToolbarTitle(calendar: Calendar) {
@@ -136,5 +124,9 @@ class MainActivity : AppCompatActivity() {
     private fun setTodayDate() {
         selectedCalendarDate = Calendar.getInstance()
         calendarView.setDate(selectedCalendarDate)
+    }
+
+    companion object{
+        val POSITION_TO_SCROLL = 8
     }
 }

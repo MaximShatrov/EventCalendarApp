@@ -25,8 +25,8 @@ import java.util.*
 class NewEventActivity : AppCompatActivity() {
     private val eventService: EventService = EventServiceImpl(EventJsonFileRepository())
     private var selectedDateCalendar: Calendar = Calendar.getInstance()
-    private lateinit var timestampStart: Timestamp
-    private lateinit var timestampFinish: Timestamp
+    private var timestampStart: Timestamp = Timestamp(ZERO_HOUR_TIMESTAMP)
+    private var timestampFinish: Timestamp = Timestamp(ONE_HOUR_TIMESTAMP)
     private lateinit var textViewStartTime: TextView
     private lateinit var textViewFinishTime: TextView
 
@@ -34,8 +34,6 @@ class NewEventActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_event)
         selectedDateCalendar.timeInMillis = intent.getSerializableExtra("Timestamp") as Long
-        timestampStart = Timestamp(0L)
-        timestampFinish = Timestamp(3600000L)
         val editTextEventTitle: EditText = findViewById(R.id.et_eventTitle)
         val editTextEventDescription: EditText = findViewById(R.id.et_eventDescription)
 
@@ -55,7 +53,7 @@ class NewEventActivity : AppCompatActivity() {
         }
         textViewTimeSet()
 
-        val builder = DatePickerBuilder(
+        val datePickerBuilder = DatePickerBuilder(
             this,
             OnSelectDateListener { calendar ->
                 selectedDateCalendar = calendar.get(0)
@@ -64,35 +62,35 @@ class NewEventActivity : AppCompatActivity() {
                         .capitalize()
             })
             .setPickerType(CalendarView.ONE_DAY_PICKER)
-        builder.setDate(selectedDateCalendar)
-        val datePicker: DatePicker = builder.build()
+        datePickerBuilder.setDate(selectedDateCalendar)
+        val datePicker: DatePicker = datePickerBuilder.build()
 
         textViewDate.setOnClickListener {
             datePicker.show()
         }
 
-
-        val saveButton: Button = findViewById(R.id.bt_saveButton)
-        saveButton.setOnClickListener {
-            if (editTextEventTitle.text.toString().equals("")){
-                val toast: Toast = Toast.makeText(this,getString(R.string.newEventSetTitleError),Toast.LENGTH_SHORT)
-                toast.show()
-            } else if (timestampFinish.time < timestampStart.time){
-                val toast: Toast = Toast.makeText(this,getString(R.string.newEventIncorrectTime),Toast.LENGTH_SHORT)
-                toast.show()
-            } else {
-                val newEventEntity = EventEntity(
-                    -1,
-                    Timestamp(timestampStart.time + selectedDateCalendar.timeInMillis),
-                    Timestamp(timestampFinish.time + selectedDateCalendar.timeInMillis),
-                    editTextEventTitle.text.toString(),
-                    editTextEventDescription.text.toString()
-                )
-                if (eventService.createEvent(newEventEntity).id != -1){
-                    super.onBackPressed()
-                } else {
-                    val toast: Toast = Toast.makeText(this,getString(R.string.newEventBusy),Toast.LENGTH_SHORT)
+        findViewById<Button>(R.id.bt_saveButton)?.apply {
+            this.setOnClickListener {
+                if (editTextEventTitle.text.toString().equals("")){
+                    val toast: Toast = Toast.makeText(this@NewEventActivity,getString(R.string.newEventSetTitleError),Toast.LENGTH_SHORT)
                     toast.show()
+                } else if (timestampFinish.time < timestampStart.time){
+                    val toast: Toast = Toast.makeText(this@NewEventActivity,getString(R.string.newEventIncorrectTime),Toast.LENGTH_SHORT)
+                    toast.show()
+                } else {
+                    val newEventEntity = EventEntity(
+                        NEW_EVENT_ID,
+                        Timestamp(timestampStart.time + selectedDateCalendar.timeInMillis),
+                        Timestamp(timestampFinish.time + selectedDateCalendar.timeInMillis),
+                        editTextEventTitle.text.toString(),
+                        editTextEventDescription.text.toString()
+                    )
+                    if (eventService.createEvent(newEventEntity).id != NEW_EVENT_ID){
+                        super.onBackPressed()
+                    } else {
+                        val toast: Toast = Toast.makeText(this@NewEventActivity,getString(R.string.newEventBusy),Toast.LENGTH_SHORT)
+                        toast.show()
+                    }
                 }
             }
         }
@@ -108,10 +106,10 @@ class NewEventActivity : AppCompatActivity() {
 
     private fun timePickerShow(timestamp: Timestamp, textView: TextView) {
 
-        val timePickerDialog: TimePickerDialog = TimePickerDialog(
+        val timePickerDialog = TimePickerDialog(
             this,
             TimePickerDialog.OnTimeSetListener { timePicker, i, i2 ->
-                timestamp.time = (60000L * ((i * 60) + i2))
+                timestamp.time = (MILLISEC_IN_MIN * ((i * MIN_IN_HOUR) + i2))
                 val sdf = SimpleDateFormat("HH:mm")
                 sdf.setTimeZone(TimeZone.getTimeZone("GMT"))
                 textView.text = sdf.format(timestamp)
@@ -126,5 +124,13 @@ class NewEventActivity : AppCompatActivity() {
             true
         )
         timePickerDialog.show()
+    }
+
+    companion object{
+        val ZERO_HOUR_TIMESTAMP = 0L
+        val ONE_HOUR_TIMESTAMP = 3600000L
+        val MILLISEC_IN_MIN = 60000L
+        val MIN_IN_HOUR = 60
+        val NEW_EVENT_ID = -1
     }
 }

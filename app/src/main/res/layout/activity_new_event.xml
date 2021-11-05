@@ -9,7 +9,7 @@
     <View
         android:id="@+id/v_newEventToolbar"
         android:layout_width="wrap_content"
-        android:layout_height="45dp"
+        android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,11 +19,11 @@
         android:id="@+id/tv_newEventToolbarTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:textColor="@android:color/white"
-        android:textSize="25dp"
-        android:textStyle="normal"
+        android:layout_marginHorizontal="@dimen/newEvent_toolbarTitleMargin"
         android:text="@string/newEventToolbarTitle"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/toolbarTextSize"
+        android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="@+id/v_newEventToolbar"
         app:layout_constraintEnd_toEndOf="@+id/v_newEventToolbar"
         app:layout_constraintHorizontal_bias="0"
@@ -35,8 +35,8 @@
         android:id="@+id/et_eventTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="@dimen/newEvent_editTextHorizontalMargins"
+        android:layout_marginTop="@dimen/newEvent_editTextTopMargins"
         android:ems="10"
         android:hint="@string/newEventSetTitleHere"
         android:inputType="text"
@@ -49,9 +49,8 @@
         android:id="@+id/tv_NewEventDate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-
-        android:textSize="25dp"
+        android:layout_marginHorizontal="@dimen/newEvent_textViewHorizontalMargins"
+        android:textSize="@dimen/newEvent_textViewTextSize"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -62,9 +61,9 @@
         android:id="@+id/tv_startTimeTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
+        android:layout_marginHorizontal="@dimen/newEvent_textViewHorizontalMargins"
         android:text="@string/newEventStartTime"
-        android:textSize="25dp"
+        android:textSize="@dimen/newEvent_textViewTextSize"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_NewEventDate"
         tools:text="Начало:" />
@@ -73,10 +72,9 @@
         android:id="@+id/tv_newEventStartTime"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-
-        android:layout_marginHorizontal="10dp"
+        android:layout_marginHorizontal="@dimen/newEvent_textViewHorizontalMargins"
         android:gravity="end"
-        android:textSize="25dp"
+        android:textSize="@dimen/newEvent_textViewTextSize"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tv_startTimeTitle"
@@ -87,9 +85,9 @@
         android:id="@+id/tv_finishTimeTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
+        android:layout_marginHorizontal="@dimen/newEvent_textViewHorizontalMargins"
         android:text="@string/newEventFinishTime"
-        android:textSize="25dp"
+        android:textSize="@dimen/newEvent_textViewTextSize"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_startTimeTitle"
         tools:text="Конец:" />
@@ -98,32 +96,20 @@
         android:id="@+id/tv_newEventFinishTime"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
+        android:layout_marginHorizontal="@dimen/newEvent_textViewHorizontalMargins"
         android:gravity="end"
-        android:textSize="25dp"
-
+        android:textSize="@dimen/newEvent_textViewTextSize"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tv_finishTimeTitle"
         app:layout_constraintTop_toBottomOf="@+id/tv_newEventStartTime"
         tools:text="01:00" />
 
-    <Button
-        android:id="@+id/bt_saveButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:backgroundTint="@color/colorAccent"
-        android:text="@string/newEventSave"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
     <EditText
         android:id="@+id/et_eventDescription"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginHorizontal="10dp"
+        android:layout_marginHorizontal="@dimen/newEvent_editTextHorizontalMargins"
         android:ems="10"
         android:gravity="start"
         android:hint="@string/newEventSetDescription"
@@ -133,5 +119,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_newEventFinishTime"
         app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/bt_saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/newEvent_saveButtonMargins"
+        android:layout_marginBottom="@dimen/newEvent_saveButtonMargins"
+        android:backgroundTint="@color/colorAccent"
+        android:text="@string/newEventSave"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

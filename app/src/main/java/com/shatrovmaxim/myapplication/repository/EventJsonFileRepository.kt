@@ -11,7 +11,7 @@ import java.time.LocalDateTime
 import java.util.*
 import kotlin.collections.ArrayList
 
-
+//TODO() Документация
 class EventJsonFileRepository : EventRepository {
 
     private val FILE_NAME = "Events.json"

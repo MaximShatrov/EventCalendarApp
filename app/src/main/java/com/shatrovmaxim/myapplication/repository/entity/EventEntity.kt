@@ -10,7 +10,7 @@ import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import java.sql.Timestamp
 
-
+//TODO() Документация
 @Serializable
 data class EventEntity(
     var id: Int,
@@ -22,10 +22,6 @@ data class EventEntity(
     var description: String
 ) : Comparable<EventEntity>, java.io.Serializable {
 
-
-    override fun toString(): String {
-        return "EventEntity(id=$id, date_start=$date_start, date_finish=$date_finish, name='$name', description='$description')"
-    }
 
     override fun compareTo(other: EventEntity): Int {
         if (this.date_start.time < other.date_start.time) return 1
@@ -47,6 +43,7 @@ data class EventEntity(
     override fun hashCode(): Int {
         return id
     }
+
     object TimstampAsLongSerializer : KSerializer<Timestamp> {
         override val descriptor: SerialDescriptor =
             PrimitiveSerialDescriptor("Timestamp", PrimitiveKind.STRING)

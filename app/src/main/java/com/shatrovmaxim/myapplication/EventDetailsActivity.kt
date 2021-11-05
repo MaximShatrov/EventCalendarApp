@@ -12,33 +12,24 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class EventDetailsActivity : AppCompatActivity() {
-    val eventService: EventService = EventServiceImpl(EventJsonFileRepository())
-    lateinit var eventName: TextView
-    lateinit var description: TextView
-    lateinit var eventTime: TextView
-    lateinit var buttonDelete: Button
-
+    private val eventService: EventService = EventServiceImpl(EventJsonFileRepository())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_event_details)
+        init()
+    }
+
+    private fun init(){
         val event = intent.getSerializableExtra("Event") as EventEntity
-
-        eventName = findViewById(R.id.tv_event_name)
-        eventName.text = event.name
-
-        description = findViewById(R.id.tv_description)
-        description.text = event.description
-
-        eventTime = findViewById(R.id.tv_eventTime)
-        eventTime.text =
+        findViewById<TextView>(R.id.tv_eventName).text = event.name
+        findViewById<TextView>(R.id.tv_description).text = event.description
+        findViewById<TextView>(R.id.tv_eventTime).text =
             SimpleDateFormat("EEEE, dd MMMM HH:mm").format(Date(event.date_start.getTime()))
                 .capitalize() + SimpleDateFormat(" - dd MMMM HH:mm").format(Date(event.date_finish.getTime()))
-
-        buttonDelete = findViewById(R.id.bt_deleteEvent)
-        buttonDelete.setOnClickListener {
-            eventService.deleteEvent(event)
-            super.onBackPressed()
+        findViewById<Button>(R.id.bt_deleteEvent)?.apply {
+            this.setOnClickListener { eventService.deleteEvent(event)
+                super.onBackPressed() }
         }
     }
 }

@@ -1,6 +1,26 @@
 <resources>
-    <dimen name="fab_margin">16dp</dimen>
-    <dimen name="toolbarIconSize">35dp</dimen>
-    <dimen name="toolbarStartEndMargin">10dp</dimen>
+    <dimen name="main_fabMargin">16dp</dimen>
+    <dimen name="main_toolbarIconSize">36dp</dimen>
+    <dimen name="main_toolbarIconsStartEndMargin">10dp</dimen>
+
+    <dimen name="main_toolbarDatePaddingEnd">20dp</dimen>
+    <dimen name="toolbarTextSize">26dp</dimen>
+
+    <dimen name="eventDetails_eventNameMarginHorizontal">10dp</dimen>
+    <dimen name="eventDetails_textViewMarginVertical">5dp</dimen>
+    <dimen name="eventDetails_timeAndDescriptionMarginHorizontal">5dp</dimen>
+    <dimen name="eventDetails_textViewSize">20dp</dimen>
+    <dimen name="eventDetails_iconsSize">26dp</dimen>
+    <dimen name="eventDetails_iconsMarginStart">10dp</dimen>
+    <dimen name="eventDetails_deleteButtonMargins">10dp</dimen>
+
+    <dimen name="newEvent_toolbarTitleMargin">10dp</dimen>
+    <dimen name="newEvent_editTextHorizontalMargins">10dp</dimen>
+    <dimen name="newEvent_editTextTopMargins">10dp</dimen>
+
+    <dimen name="newEvent_textViewHorizontalMargins">10dp</dimen>
+    <dimen name="newEvent_textViewTextSize">26dp</dimen>
+
+    <dimen name="newEvent_saveButtonMargins">10dp</dimen>
 
 </resources>
