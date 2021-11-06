@@ -11,7 +11,10 @@ import java.time.LocalDateTime
 import java.util.*
 import kotlin.collections.ArrayList
 
-//TODO() Документация
+/*
+* Имлпементация репозитория EventRepository.
+* Хранит записи в json формате на устройстве в /data/data/com.shatrovmaxim.myapplication/files/Events.json
+ */
 class EventJsonFileRepository : EventRepository {
 
     private val FILE_NAME = "Events.json"
@@ -19,22 +22,36 @@ class EventJsonFileRepository : EventRepository {
     private val idSet: MutableSet<Int> = TreeSet<Int>()
     private var idPointer: Int = 0
 
-
     init {
-        initEventslist()
+        initEventsList()
     }
 
+    /*
+    * Получение всех дел из репозитория
+    * @return MutableList<EventEntity> - возвращаемый List
+     */
     override fun findAll(): MutableList<EventEntity> {
         return eventsMutableList
     }
 
+    /*
+    * Получить дело по его id
+    * @param id запрашиваемого EventEntity
+    * @return запрашиваемый EventEntity
+    * @throws EventNotFoundException если такой записи нет
+     */
     @Throws(EventNotFoundException::class)
     override fun getById(id: Int): EventEntity {
         eventsMutableList.forEach { if (it.id == id) return it }
         throw   EventNotFoundException("Event with id:${id} not found!")
     }
 
-    @Throws(EventNotFoundException::class)
+
+    /*
+    * Получить дела начинающиеся(!) в определенный день
+    * @param calendar - Дата в которую нужно получить дела
+    * @return MutableList<EventEntity> - список найденных в этот день дел
+    */
     override fun getAllByCalendarDate(calendar: Calendar): MutableList<EventEntity> {
         val resultEvents: MutableList<EventEntity> = ArrayList()
         eventsMutableList.forEach {
@@ -49,13 +66,16 @@ class EventJsonFileRepository : EventRepository {
                 resultEvents.add(it)
             }
         }
-        return if (resultEvents.isNotEmpty()) resultEvents
-        else {
-            ArrayList()
-            //throw EventNotFoundException("No events ${calendar.time}!")
-        }
+        return resultEvents
     }
 
+    /*
+    * Сохранение дела в репозиторий. Если в списке уже имеется дело с таким ID, обновляет его.
+    * Если нет - проверяет на пересечение с другими и записывает его в файл, если перечечения нет.
+    * Если дело имеет пересечения с другими, не записывает его в файл и возвращает в неизменном виде (не изменяет его id)
+    * @param event - дело, которое нужно записать
+    * @return EventEntity - возвращаемая запись.
+     */
     override fun save(event: EventEntity): EventEntity {
         if (eventsMutableList.contains(event)) {
             eventsMutableList.remove(event)
@@ -73,17 +93,28 @@ class EventJsonFileRepository : EventRepository {
         }
     }
 
+    /*
+    * Удаление дела из eventsMutableList, сохранение eventsMutableList в файл, обновление ID указателя
+    * @param event - удаляемое дело
+     */
     override fun delete(event: EventEntity) {
         eventsMutableList.remove(event)
         saveEventsToFile()
         updateIdPointer()
     }
 
+    /*
+    * Проверка наличия дел в репозитории
+    * @return Boolean - true, если в репе пусто
+    */
     override fun isEmpty(): Boolean {
         return eventsMutableList.size == 0
     }
 
-    private fun initEventslist() {
+    /*
+    * Инициализация MutableList<EventEntity> из files при наличии Events.json либо из assets при его отсутствии
+     */
+    private fun initEventsList() {
         var fileExists = false
         val files = SubApplication.applicationContext().fileList()
         files.forEach {
@@ -101,6 +132,9 @@ class EventJsonFileRepository : EventRepository {
         }
     }
 
+    /*
+    * Парсинг записей из files/Events.json и запись в eventsMutableList
+    */
     private fun readEventsFromFile() {
         val jsonString: String
         SubApplication.applicationContext().openFileInput(FILE_NAME).use {
@@ -111,6 +145,9 @@ class EventJsonFileRepository : EventRepository {
         eventsMutableList = Json.decodeFromString(jsonString)
     }
 
+    /*
+    * Парсинг демо-записей из assets и запись в eventsMutableList
+    */
     private fun readEventsFromAssets() {
         val jsonString: String
         SubApplication.applicationContext().assets.open(FILE_NAME).use {
@@ -121,6 +158,9 @@ class EventJsonFileRepository : EventRepository {
         eventsMutableList = Json.decodeFromString(jsonString)
     }
 
+    /*
+    * Запись eventsMutableList в files/Events.json
+     */
     private fun saveEventsToFile() {
         val jsonString: String = Json.encodeToString(eventsMutableList)
         SubApplication.applicationContext().openFileOutput(FILE_NAME, MODE_PRIVATE).use {
@@ -128,11 +168,19 @@ class EventJsonFileRepository : EventRepository {
         }
     }
 
+    /*
+    * Обновления указателя ID
+     */
     private fun updateIdPointer() {
         eventsMutableList.forEach { idSet.add(it.id) }
         idPointer = idSet.last() + 1
     }
 
+    /*
+    * Проверка пересечения временных промежутков дела с другими делами.
+    * @param event - проверяемая запись
+    * @return Boolean - true если запись пересекается||поглощает||входит во временные промежутки какого либо из дел
+     */
     private fun superimpositionCheck(event: EventEntity): Boolean {
         if (eventsMutableList.isNotEmpty()) {
             var imposition: Boolean

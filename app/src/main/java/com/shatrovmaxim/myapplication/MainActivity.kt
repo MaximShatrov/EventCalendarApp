@@ -21,7 +21,9 @@ import com.shatrovmaxim.myapplication.utils.EventMapMaker
 import java.text.SimpleDateFormat
 import java.util.*
 
-
+/*
+* Главный экран приложения с возможностью выбрать дату в CalendarView и таймлайном дел в выбранное число
+ */
 class MainActivity : AppCompatActivity() {
     private lateinit var eventService: EventService
     private var selectedCalendarDate = Calendar.getInstance()
@@ -55,7 +57,10 @@ class MainActivity : AppCompatActivity() {
         refreshRecyclerView(selectedCalendarDate)
     }
 
-    private fun init(){
+    /*
+    *   Инициализация вьюшек MainActivity и обработчиков событий
+    */
+    private fun init() {
         calendarView = findViewById(R.id.calendarView)
         calendarView.setOnDayClickListener {
             selectedCalendarDate = it.calendar
@@ -79,13 +84,15 @@ class MainActivity : AppCompatActivity() {
 
         toolbarTodayIcon = findViewById(R.id.iv_todayIcon)
         toolbarTodayIcon.setOnClickListener {
-            setTodayDate()
+            selectedCalendarDate = Calendar.getInstance()
+            calendarView.setDate(selectedCalendarDate)
             refreshRecyclerView(selectedCalendarDate)
             refreshToolbarTitle(selectedCalendarDate)
         }
 
         recyclerViewTimeline = findViewById(R.id.rv_eventsList)
-        recyclerViewTimeline.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        recyclerViewTimeline.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         fabNewEvent = findViewById(R.id.floatingActionButton)
         fabNewEvent.setOnClickListener {
@@ -95,6 +102,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /*
+    * Обновление элементов RecyclerView
+    * @param calendar - календарь, на основании которого из eventService берутся events, преобразуются в MutableMap<Int, EventEntity> и помещаются в RecyclerView
+     */
     private fun refreshRecyclerView(calendar: Calendar) {
         recyclerViewTimeline.adapter =
             EventMapAdapterRecyclerView(
@@ -107,10 +118,17 @@ class MainActivity : AppCompatActivity() {
         recyclerViewTimeline.scrollToPosition(POSITION_TO_SCROLL)
     }
 
+    /*
+    * Обновление toolbarTextViewDate
+    * @param calendar - дата помещаемая в toolbar
+     */
     private fun refreshToolbarTitle(calendar: Calendar) {
         toolbarTextViewDate.text = SimpleDateFormat("dd MMMM YYYY").format(calendar.time)
     }
 
+    /*
+    * Создание EventDay из всех EventEntity в eventService. Установка их в CalendarView для отображение иконок событий
+     */
     private fun addEventsIcons() {
         val eventsDays: MutableList<EventDay> = ArrayList()
         eventService.findAll().forEach {
@@ -121,12 +139,7 @@ class MainActivity : AppCompatActivity() {
         calendarView.setEvents(eventsDays)
     }
 
-    private fun setTodayDate() {
-        selectedCalendarDate = Calendar.getInstance()
-        calendarView.setDate(selectedCalendarDate)
-    }
-
-    companion object{
+    companion object {
         val POSITION_TO_SCROLL = 8
     }
 }
