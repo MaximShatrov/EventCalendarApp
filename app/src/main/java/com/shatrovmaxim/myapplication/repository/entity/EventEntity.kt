@@ -10,15 +10,22 @@ import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import java.sql.Timestamp
 
-//TODO() Документация
+/**
+ * Класс дела/события/записи в ежедневнике
+ */
 @Serializable
 data class EventEntity(
+    /**ID записи для идентификации уникальности в хранилище*/
     var id: Int,
     @Serializable(with = TimstampAsLongSerializer::class)
+    /**Timestamp начала дела*/
     var date_start: Timestamp,  //in milliseconds
     @Serializable(with = TimstampAsLongSerializer::class)
+    /**Timestamp окончания дела*/
     var date_finish: Timestamp, //in milliseconds
+    /**Название дела*/
     var name: String,
+    /**Описание дела*/
     var description: String
 ) : Comparable<EventEntity>, java.io.Serializable {
 
@@ -41,6 +48,9 @@ data class EventEntity(
         return id
     }
 
+    /**
+     * Implements kotlinx.serialization.KSerializer. Необходим для сериализации типа Timestamp
+     */
     object TimstampAsLongSerializer : KSerializer<Timestamp> {
         override val descriptor: SerialDescriptor =
             PrimitiveSerialDescriptor("Timestamp", PrimitiveKind.STRING)
