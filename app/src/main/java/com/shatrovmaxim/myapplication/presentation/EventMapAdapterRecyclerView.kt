@@ -11,9 +11,11 @@ import com.shatrovmaxim.myapplication.repository.entity.EventEntity
 import java.text.SimpleDateFormat
 import java.util.*
 
-    //TODO() Документация
+/**
+ * Extend RecyclerView.Adapter. Отрисовывает таблицу с делами (по 1 ячейке на каждый час) и карточками в них при наличии дела.
+ */
 class EventMapAdapterRecyclerView(
-    val events: Map<Int, EventEntity>,
+    private val events: Map<Int, EventEntity>,
     private val listener: OpenViewListener
 ) :
     RecyclerView.Adapter<EventMapAdapterRecyclerView.ViewHolder>() {
@@ -46,8 +48,8 @@ class EventMapAdapterRecyclerView(
                 calendar.timeInMillis = event.date_start.time
                 val simpleDateFormat = SimpleDateFormat("HH:mm")
                 eventTime.text =
-                    simpleDateFormat.format(Date(event.date_start.getTime())) + " - " + simpleDateFormat.format(
-                        Date(event.date_finish.getTime())
+                    simpleDateFormat.format(Date(event.date_start.time)) + " - " + simpleDateFormat.format(
+                        Date(event.date_finish.time)
                     )
                 cardView.setOnClickListener {
                     listener.openView(event)
@@ -59,12 +61,12 @@ class EventMapAdapterRecyclerView(
 
         private fun timelineInit(position: Int) {
             if (position < 10) {
-                sectorStart.text = "0" + position.toString() + ":00"
-            } else sectorStart.text = position.toString() + ":00"
+                sectorStart.text = "0$position:00"
+            } else sectorStart.text = "$position:00"
         }
     }
 
-    companion object{
-        val CARDS_IN_RECYCLER = 24
+    companion object {
+        private val CARDS_IN_RECYCLER = 24
     }
 }
