@@ -1,12 +1,47 @@
 <resources>
     <string name="app_name">Event Calendar</string>
     <string name="action_settings">Settings</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+
+    <string name="material_calendar_monday">M</string>
+    <string name="material_calendar_tuesday">T</string>
+    <string name="material_calendar_wednesday">W</string>
+    <string name="material_calendar_thursday">T</string>
+    <string name="material_calendar_friday">F</string>
+    <string name="material_calendar_saturday">S</string>
+    <string name="material_calendar_sunday">S</string>
+
+    <array name="material_calendar_months_array">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </array>
+
+    <string name="material_calendar_today_button">Today</string>
+    <string name="material_calendar_positive_button">OK</string>
+    <string name="material_calendar_negative_button">Cancel</string>
+    <string name="newEventSetTitleError">Set event title!</string>
+    <string name="newEventIncorrectTime">Incorrect event time!</string>
+    <string name="newEventBusy">You already have event in this time frame.</string>
+    <string name="newEventSave">Save</string>
+    <string name="newEventStartTime">Start time:</string>
+    <string name="newEventFinishTime">Finish time:</string>
+    <string name="newEventSetTitleHere">Set title</string>
+    <string name="newEventSetDescription">Set description</string>
+    <string name="newEventToolbarTitle">New event</string>
+    <string name="eventDetailsDeleteEvent">Delete event</string>
+
+
 </resources>

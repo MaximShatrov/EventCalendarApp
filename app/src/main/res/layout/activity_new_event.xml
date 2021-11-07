@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NewEventActivity">
+
+    <View
+        android:id="@+id/v_newEventToolbar"
+        android:layout_width="wrap_content"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_newEventToolbarTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/newEvent_toolbarTitleMargin"
+        android:text="@string/newEventToolbarTitle"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/toolbarTextSize"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="@+id/v_newEventToolbar"
+        app:layout_constraintEnd_toEndOf="@+id/v_newEventToolbar"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@id/v_newEventToolbar"
+        app:layout_constraintTop_toTopOf="@+id/v_newEventToolbar"
+        tools:text="Создание новой записи" />
+
+    <EditText
+        android:id="@+id/et_eventTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/newEvent_editTextHorizontalMargins"
+        android:layout_marginTop="@dimen/newEvent_editTextTopMargins"
+        android:ems="10"
+        android:hint="@string/newEventSetTitleHere"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/v_newEventToolbar"
+        tools:text="Set name" />
+
+    <TextView
+        android:id="@+id/tv_NewEventDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/newEvent_textViewHorizontalMargins"
+        android:textSize="@dimen/newEvent_textViewTextSize"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_eventTitle"
+        tools:text="Вт. 2 ноября 2021г." />
+
+    <TextView
+        android:id="@+id/tv_startTimeTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/newEvent_textViewHorizontalMargins"
+        android:text="@string/newEventStartTime"
+        android:textSize="@dimen/newEvent_textViewTextSize"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_NewEventDate"
+        tools:text="Начало:" />
+
+    <TextView
+        android:id="@+id/tv_newEventStartTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/newEvent_textViewHorizontalMargins"
+        android:gravity="end"
+        android:textSize="@dimen/newEvent_textViewTextSize"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_startTimeTitle"
+        app:layout_constraintTop_toBottomOf="@+id/tv_NewEventDate"
+        tools:text="00:00" />
+
+    <TextView
+        android:id="@+id/tv_finishTimeTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/newEvent_textViewHorizontalMargins"
+        android:text="@string/newEventFinishTime"
+        android:textSize="@dimen/newEvent_textViewTextSize"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_startTimeTitle"
+        tools:text="Конец:" />
+
+    <TextView
+        android:id="@+id/tv_newEventFinishTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/newEvent_textViewHorizontalMargins"
+        android:gravity="end"
+        android:textSize="@dimen/newEvent_textViewTextSize"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_finishTimeTitle"
+        app:layout_constraintTop_toBottomOf="@+id/tv_newEventStartTime"
+        tools:text="01:00" />
+
+    <EditText
+        android:id="@+id/et_eventDescription"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="@dimen/newEvent_editTextHorizontalMargins"
+        android:ems="10"
+        android:gravity="start"
+        android:hint="@string/newEventSetDescription"
+        android:inputType="textMultiLine"
+        app:layout_constraintBottom_toTopOf="@+id/bt_saveButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_newEventFinishTime"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/bt_saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/newEvent_saveButtonMargins"
+        android:layout_marginBottom="@dimen/newEvent_saveButtonMargins"
+        android:backgroundTint="@color/colorAccent"
+        android:text="@string/newEventSave"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

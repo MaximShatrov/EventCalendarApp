@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@style/AppTheme.NoActionBar"
+    tools:context=".EventDetailsActivity">
+
+    <TextView
+        android:id="@+id/tv_eventName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/eventDetails_eventNameMarginHorizontal"
+        android:layout_marginVertical="@dimen/eventDetails_textViewMarginVertical"
+        android:textSize="26dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Тестовая встреча" />
+
+    <TextView
+        android:id="@+id/tv_eventTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/eventDetails_eventNameMarginHorizontal"
+        android:layout_marginVertical="@dimen/eventDetails_textViewMarginVertical"
+        android:textSize="@dimen/eventDetails_textViewSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_clock"
+        app:layout_constraintTop_toBottomOf="@+id/tv_eventName"
+        tools:text="10.11.2011" />
+
+    <TextView
+        android:id="@+id/tv_description"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="@dimen/eventDetails_eventNameMarginHorizontal"
+        android:layout_marginVertical="@dimen/eventDetails_textViewMarginVertical"
+        android:textSize="@dimen/eventDetails_textViewSize"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toTopOf="@+id/bt_deleteEvent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_info"
+        app:layout_constraintTop_toBottomOf="@+id/tv_eventTime"
+        tools:text="Тестовое описание встречи." />
+
+    <ImageView
+        android:id="@+id/iv_info"
+        android:layout_width="@dimen/eventDetails_iconsSize"
+        android:layout_height="@dimen/eventDetails_iconsSize"
+        android:layout_marginStart="@dimen/eventDetails_iconsMarginStart"
+        android:adjustViewBounds="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_description"
+        app:srcCompat="@drawable/ic_info_circle" />
+
+    <ImageView
+        android:id="@+id/iv_clock"
+        android:layout_width="@dimen/eventDetails_iconsSize"
+        android:layout_height="@dimen/eventDetails_iconsSize"
+        android:layout_marginStart="@dimen/eventDetails_iconsMarginStart"
+        android:adjustViewBounds="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_eventTime"
+        app:srcCompat="@drawable/ic_clock" />
+
+    <Button
+        android:id="@+id/bt_deleteEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/eventDetails_deleteButtonMargins"
+        android:layout_marginBottom="@dimen/eventDetails_deleteButtonMargins"
+        android:backgroundTint="@color/colorAccent"
+        android:text="@string/eventDetailsDeleteEvent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

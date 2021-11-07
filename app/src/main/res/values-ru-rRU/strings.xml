@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Ежедневник</string>
+    <string name="action_settings">Настройки</string>
+    <string name="material_calendar_monday">Пн</string>
+    <string name="material_calendar_tuesday">Вт</string>
+    <string name="material_calendar_wednesday">Ср</string>
+    <string name="material_calendar_thursday">Чт</string>
+    <string name="material_calendar_friday">Пт</string>
+    <string name="material_calendar_saturday">Сб</string>
+    <string name="material_calendar_sunday">Вс</string>
+
+    <array name="material_calendar_months_array">
+        <item>Январь</item>
+        <item>Февраль</item>
+        <item>Март</item>
+        <item>Апрель</item>
+        <item>Май</item>
+        <item>Июнь</item>
+        <item>Июль</item>
+        <item>Август</item>
+        <item>Сентябрь</item>
+        <item>Октябрь</item>
+        <item>Ноябрь</item>
+        <item>Декабрь</item>
+    </array>
+
+    <string name="material_calendar_today_button">Текущий месяц</string>
+    <string name="material_calendar_positive_button">Ок</string>
+    <string name="material_calendar_negative_button">Отмена</string>
+    <string name="next">След.</string>
+    <string name="previous">Пред.</string>
+    <string name="newEventSetTitleError">Укажите название записи!</string>
+    <string name="newEventIncorrectTime">Некорректное время записи!</string>
+    <string name="newEventBusy">У вас уже есть дела в этот временной промежуток.</string>
+    <string name="newEventSave">Сохранить</string>
+    <string name="newEventStartTime">Начало:</string>
+    <string name="newEventFinishTime">Конец:</string>
+    <string name="newEventSetTitleHere">Укажите название</string>
+    <string name="newEventSetDescription">Укажите описание</string>
+    <string name="newEventToolbarTitle">Новая запись</string>
+    <string name="eventDetailsDeleteEvent">Удалить запись</string>
+</resources>
