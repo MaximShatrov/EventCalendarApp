@@ -3,22 +3,22 @@ package com.shatrovmaxim.myapplication.utils
 import com.shatrovmaxim.myapplication.repository.entity.EventEntity
 import java.util.*
 
-/*
-* Класс утилита, преобразующий List<EventEntity> в Map<Int, EventEntity> для отрисовки в RecyclerView
+/**
+ * Класс утилита, преобразующий List<EventEntity> в Map<Int, EventEntity> для отрисовки в RecyclerView
  */
-class EventMapMaker() {
+class EventMapMaker {
 
-    /*
-    * Каждый EvenyEntity из исходного List помещается в Map с Int ключом каждого часа в котором "проходит" это дело
-    * Например, если event EventEntity начинается в 10:00 и заканчивается в 12:00, то в возвращаемой Map будет три записи относящиеся к event:
-    * eventMap<10,event>, eventMap<11,event>, eventMap<12,event>. А значит в RecyclerView будет три блока для этого event с 10 до 13 часов
-    * @param List<EventEntity> - исходный List событий
-    * @return MutableMap<Int, EventEntity>
+    /**
+     * Каждый EvenyEntity из исходного List помещается в Map с Int ключом каждого часа в котором "проходит" это дело
+     * Например, если event EventEntity начинается в 10:00 и заканчивается в 12:00, то в возвращаемой Map будет три записи относящиеся к event:
+     * eventMap<10,event>, eventMap<11,event>, eventMap<12,event>. А значит в RecyclerView будет три блока для этого event с 10 до 13 часов
+     * @param List<EventEntity> - исходный List событий
+     * @return MutableMap<Int, EventEntity>
      */
 
     fun getMapOfEvents(events: List<EventEntity>): Map<Int, EventEntity> {
         val eventsMap: MutableMap<Int, EventEntity> = mutableMapOf()
-        var calendar: Calendar = Calendar.getInstance()
+        val calendar: Calendar = Calendar.getInstance()
         if (events.isNotEmpty()) {
             events.forEach {
                 var timePointer = it.date_start.time
@@ -36,6 +36,6 @@ class EventMapMaker() {
     }
 
     companion object {
-        val HOUR_IN_MILLISECONDS = 3600000L
+        private val HOUR_IN_MILLISECONDS = 3600000L
     }
 }

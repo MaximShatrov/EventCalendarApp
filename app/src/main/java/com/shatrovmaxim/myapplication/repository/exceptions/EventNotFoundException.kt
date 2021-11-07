@@ -1,4 +1,6 @@
 package com.shatrovmaxim.myapplication.repository.exceptions
 
-class EventNotFoundException(message: String?) : Exception(message) {
-}
+/**
+ * Exception при отсутствии EventEntity в репозитории
+ */
+class EventNotFoundException(message: String?) : Exception(message)

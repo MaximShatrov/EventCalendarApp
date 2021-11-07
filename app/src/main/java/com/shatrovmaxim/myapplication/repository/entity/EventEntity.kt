@@ -63,7 +63,5 @@ data class EventEntity(
     }
 }
 
-//Serializer for 3rd party class
-
 
 

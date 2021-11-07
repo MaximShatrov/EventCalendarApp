@@ -11,9 +11,9 @@ import com.shatrovmaxim.myapplication.repository.service.EventServiceImpl
 import java.text.SimpleDateFormat
 import java.util.*
 
-/*
-* Экран подробного описания дела, переданного из MainActivity
-* Содержит название, дату и промежуток времени, краткое описание дела текстом и кнопку для удаления дела
+/**
+ * Экран подробного описания дела, переданного из MainActivity
+ * Содержит название, дату и промежуток времени, краткое описание дела текстом и кнопку для удаления дела
  */
 class EventDetailsActivity : AppCompatActivity() {
     private val eventService: EventService = EventServiceImpl(EventJsonFileRepository())
@@ -24,16 +24,13 @@ class EventDetailsActivity : AppCompatActivity() {
         init()
     }
 
-    /*
-    *   Инициализация вьюшек EventDetailsActivity и обработчика событий
-    */
     private fun init() {
         val event = intent.getSerializableExtra("Event") as EventEntity
         findViewById<TextView>(R.id.tv_eventName).text = event.name
         findViewById<TextView>(R.id.tv_description).text = event.description
         findViewById<TextView>(R.id.tv_eventTime).text =
-            SimpleDateFormat("EEEE, dd MMMM HH:mm").format(Date(event.date_start.getTime()))
-                .capitalize() + SimpleDateFormat(" - dd MMMM HH:mm").format(Date(event.date_finish.getTime()))
+            SimpleDateFormat("EEEE, dd MMMM HH:mm").format(Date(event.date_start.time))
+                .capitalize() + SimpleDateFormat(" - dd MMMM HH:mm").format(Date(event.date_finish.time))
         findViewById<Button>(R.id.bt_deleteEvent)?.apply {
             this.setOnClickListener {
                 eventService.deleteEvent(event)

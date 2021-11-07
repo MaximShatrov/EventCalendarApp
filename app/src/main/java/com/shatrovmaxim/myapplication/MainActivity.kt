@@ -21,8 +21,8 @@ import com.shatrovmaxim.myapplication.utils.EventMapMaker
 import java.text.SimpleDateFormat
 import java.util.*
 
-/*
-* Главный экран приложения с возможностью выбрать дату в CalendarView и таймлайном дел в выбранное число
+/**
+ * Главный экран приложения с возможностью выбрать дату в CalendarView и таймлайном дел в выбранное число
  */
 class MainActivity : AppCompatActivity() {
     private lateinit var eventService: EventService
@@ -57,9 +57,6 @@ class MainActivity : AppCompatActivity() {
         refreshRecyclerView(selectedCalendarDate)
     }
 
-    /*
-    *   Инициализация вьюшек MainActivity и обработчиков событий
-    */
     private fun init() {
         calendarView = findViewById(R.id.calendarView)
         calendarView.setOnDayClickListener {
@@ -102,10 +99,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    /*
-    * Обновление элементов RecyclerView
-    * @param calendar - календарь, на основании которого из eventService берутся events, преобразуются в MutableMap<Int, EventEntity> и помещаются в RecyclerView
-     */
     private fun refreshRecyclerView(calendar: Calendar) {
         recyclerViewTimeline.adapter =
             EventMapAdapterRecyclerView(
@@ -118,17 +111,10 @@ class MainActivity : AppCompatActivity() {
         recyclerViewTimeline.scrollToPosition(POSITION_TO_SCROLL)
     }
 
-    /*
-    * Обновление toolbarTextViewDate
-    * @param calendar - дата помещаемая в toolbar
-     */
     private fun refreshToolbarTitle(calendar: Calendar) {
         toolbarTextViewDate.text = SimpleDateFormat("dd MMMM YYYY").format(calendar.time)
     }
 
-    /*
-    * Создание EventDay из всех EventEntity в eventService. Установка их в CalendarView для отображение иконок событий
-     */
     private fun addEventsIcons() {
         val eventsDays: MutableList<EventDay> = ArrayList()
         eventService.findAll().forEach {
@@ -140,6 +126,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        val POSITION_TO_SCROLL = 8
+        private val POSITION_TO_SCROLL = 8
     }
 }

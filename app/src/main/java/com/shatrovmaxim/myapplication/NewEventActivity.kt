@@ -21,9 +21,9 @@ import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import java.util.*
 
-/*
-* Экран создания нового дела
-* Получает Timestamp из MainActivity для предварительного задания даты нового дела.
+/**
+ * Экран создания нового дела
+ * Получает Timestamp из MainActivity для предварительного задания даты нового дела.
  */
 class NewEventActivity : AppCompatActivity() {
     private val eventService: EventService = EventServiceImpl(EventJsonFileRepository())
@@ -39,14 +39,10 @@ class NewEventActivity : AppCompatActivity() {
         init()
     }
 
-    /*
-    * Инициализация вьюшек NewEventActivity и обработчиков событий
-     */
     private fun init() {
         selectedDateCalendar.timeInMillis = intent.getSerializableExtra("Timestamp") as Long
         val editTextEventTitle: EditText = findViewById(R.id.et_eventTitle)
         val editTextEventDescription: EditText = findViewById(R.id.et_eventDescription)
-
 
         val textViewDate: TextView = findViewById(R.id.tv_NewEventDate)
         textViewDate.text =
@@ -118,29 +114,21 @@ class NewEventActivity : AppCompatActivity() {
         }
     }
 
-    /*
-    * Задает отображаемую дату начала и конца дела в формате "HH:mm" с учетом часового пояса устройства при первичной инициализации
-     */
     private fun textViewTimeSet() {
         val sdf = SimpleDateFormat("HH:mm")
-        sdf.setTimeZone(TimeZone.getTimeZone("GMT"))
+        sdf.timeZone = TimeZone.getTimeZone("GMT")
         textViewStartTime.text = sdf.format(timestampStart)
         textViewFinishTime.text = sdf.format(timestampFinish)
 
     }
 
-    /*
-    * Вызов TimePickerDialog в котором пользователь задает время начала или конца события. Меняет цвет текста textViewFinishTime, если дело начинается позже, чем заканчивается
-    * @param timestamp - Timestamp который будет перезаписан, если пользователь выберет время
-    * @param textView - TextView которому будет задан текст в формате "HH:mm" с учетом часового пояса устройства, если пользователь выберет время
-     */
     private fun timePickerShow(timestamp: Timestamp, textView: TextView) {
         val timePickerDialog = TimePickerDialog(
             this,
             TimePickerDialog.OnTimeSetListener { timePicker, i, i2 ->
                 timestamp.time = (MILLISEC_IN_MIN * ((i * MIN_IN_HOUR) + i2))
                 val sdf = SimpleDateFormat("HH:mm")
-                sdf.setTimeZone(TimeZone.getTimeZone("GMT"))
+                sdf.timeZone = TimeZone.getTimeZone("GMT")
                 textView.text = sdf.format(timestamp)
                 if (timestampFinish.time < timestampStart.time) {
                     textViewFinishTime.setTextColor(Color.RED)
@@ -161,10 +149,10 @@ class NewEventActivity : AppCompatActivity() {
     }
 
     companion object {
-        val ZERO_HOUR_TIMESTAMP = 0L
-        val ONE_HOUR_TIMESTAMP = 3600000L
-        val MILLISEC_IN_MIN = 60000L
-        val MIN_IN_HOUR = 60
-        val NEW_EVENT_ID = -1
+        private val ZERO_HOUR_TIMESTAMP = 0L
+        private val ONE_HOUR_TIMESTAMP = 3600000L
+        private val MILLISEC_IN_MIN = 60000L
+        private val MIN_IN_HOUR = 60
+        private val NEW_EVENT_ID = -1
     }
 }
